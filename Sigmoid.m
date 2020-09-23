@@ -1,32 +1,28 @@
 classdef Sigmoid < handle
     properties
-        g
-        inputCache
-        outputCache
+        inputCache % in * batch
+        outputCache % out * batch
         numOfInOut
+        g
     end
     
     methods
         function obj = Sigmoid(numOfInOut)
             obj.numOfInOut = numOfInOut;
         end
-
-        function output = forward(obj, input)
+        
+        function output = forward(obj,input)
+            obj.inputCache = input;
             output = 1 ./ (1 + exp(-input));
             obj.outputCache = output;
-            obj.inputCache = input;
         end
         
-        function backward(obj)
-            obj.g = 1 ./ (1 + exp(-obj.inputCache)) .* (1 - 1 ./ (1 + exp(-obj.inputCache)));
+        function passBack = backward(obj, takeIn) % passBack: in * batch, takeIn: out * batch
+            passBack = takeIn .* (1 ./ (1 + exp(-obj.inputCache))) .* (1 - 1 ./ (1 + exp(-obj.inputCache)));
+            obj.g = passBack;
         end
         
-        function passBack = step(obj, lr, batchSize)
-            passBack = obj.g .* lr;
-        end
-        
-        function zeroGrad(obj)
-            obj.g = 0;
+        function step(obj, lr)
         end
     end
 end

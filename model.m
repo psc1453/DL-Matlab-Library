@@ -1,37 +1,27 @@
 classdef model < handle
-    
     properties
         layers
-        numOfLayer
+        numOfLayers
     end
     
     methods
         function obj = model(layers)
             obj.layers = layers;
-            obj.numOfLayer = length(obj.layers);
+            obj.numOfLayers = length(layers);
         end
         
-        function data = forward(obj, data)
-            for i = 1 : obj.numOfLayer
+        function output = forward(obj, input)
+            data = input;
+            for i = 1 : obj.numOfLayers
                 data = obj.layers{i}.forward(data);
-            end           
-        end
-        
-        function backward(obj)
-            for i = 1 : obj.numOfLayer
-                obj.layers{obj.numOfLayer - i + 1}.backward();
             end
+            output = data;
         end
         
-        function step(obj, lr)
-            for i = 1 : obj.numOfLayer
-                lr = obj.layers{obj.numOfLayer - i + 1}.step(lr);
-            end
-        end
-        
-        function zeroGrad(obj)
-            for i = 1 : obj.numOfLayer
-                obj.layers{obj.numOfLayer - i + 1}.zeroGrad();
+        function backward(obj, loss, lr)
+            passBack = loss * lr;
+            for i = 1 : obj.numOfLayers
+                passBack = obj.layers{obj.numOfLayers - i + 1}.backward(passBack);
             end
         end
     end
