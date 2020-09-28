@@ -18,10 +18,10 @@ classdef model < handle
             output = data;
         end
         
-        function backward(obj, loss, lr)
+        function backward(obj, loss, lr, momentum)
             passBack = loss * lr;
             for i = 1 : obj.numOfLayers
-                passBack = obj.layers{obj.numOfLayers - i + 1}.backward(passBack);
+                passBack = obj.layers{obj.numOfLayers - i + 1}.backward(passBack, momentum);
             end
         end
     end

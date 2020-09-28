@@ -4,8 +4,6 @@ classdef LinearLayer < handle
         numOfOutput
         inputCache % in * batch
         outputCache % out * batch
-        gWp % out * in
-        gBp % out * 1
         gW % out * in
         gB % out * 1
         W % out * in
@@ -15,9 +13,7 @@ classdef LinearLayer < handle
     methods
         function obj = LinearLayer(numOfInput, numOfOutput)
             obj.numOfInput = numOfInput;
-            obj.numOfOutput = numOfOutput;
-            obj.gWp = zeros(numOfOutput, numOfInput);
-            obj.gBp = zeros(numOfOutput, 1);           
+            obj.numOfOutput = numOfOutput;  
             obj.gW = zeros(numOfOutput, numOfInput);
             obj.gB = zeros(numOfOutput, 1);
             obj.W = 2 * rand(numOfOutput, numOfInput) - 1;
@@ -30,11 +26,11 @@ classdef LinearLayer < handle
             obj.outputCache = output;
         end
         
-        function passBack = backward(obj, takeIn) % passBack: in * batch, takeIn: out * batch
+        function passBack = backward(obj, takeIn, momentum) % passBack: in * batch, takeIn: out * batch
             delta = takeIn;
             passBack = obj.W' * delta;
-            obj.gW = (obj.inputCache * delta')' / size(obj.inputCache, 2);
-            obj.gB = mean(takeIn, 2);
+            obj.gW = (obj.inputCache * delta')' / size(obj.inputCache, 2) + momentum * obj.gW;
+            obj.gB = mean(takeIn, 2) + momentum * obj.gB;
             obj.W = obj.W - obj.gW;
             obj.B = obj.B - obj.gB;
         end
