@@ -1,6 +1,23 @@
-label = [1 0 1 1 0 1]
-out   = rand(1,6)
-fuck, shit = Loss.CrossEntropy(label, out)
+
+currentOutput = [1; 3; 5]
+aiajMatrix2 = currentOutput * currentOutput'
+diag(currentOutput)
+
+% a=[1;2;3;4]
+% ai=repmat(a',4,1)
+% aj=repmat(1-a,1,4)
+% g=ai.*aj
+% b=[1 2 3]
+% diag(b)
+
+
+
+
+% a=[1 2 3;4 5 6;7 8 9]
+% s=size(a)
+% e=eye(s)
+% l=logical(e)
+% a([1 0 0;0 1 0;0 0 1])
 
 
 

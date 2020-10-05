@@ -21,9 +21,6 @@ classdef Sigmoid < handle
             passBack = takeIn .* (1 ./ (1 + exp(-obj.inputCache))) .* (1 - 1 ./ (1 + exp(-obj.inputCache)));
             obj.g = passBack;
         end
-        
-        function step(obj, lr)
-        end
     end
 end
 
