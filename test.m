@@ -1,7 +1,18 @@
+model = ReLU(5)
+in=[1;2;0;-1;-2];
+model.forward(in)
+model.backward([1;3;0;-1;-2])
 
-currentOutput = [1; 3; 5]
-aiajMatrix2 = currentOutput * currentOutput'
-diag(currentOutput)
+
+
+
+
+
+
+
+% currentOutput = [1; 3; 5]
+% aiajMatrix2 = currentOutput * currentOutput'
+% diag(currentOutput)
 
 % a=[1;2;3;4]
 % ai=repmat(a',4,1)

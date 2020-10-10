@@ -69,22 +69,22 @@ test = reshape([0 1 1 1 1;
                 1 1 1 1 0], 25, 1);
 label = eye(5);
 dataSet = {data, label};
-[data, label, numOfBatch] = generateBatch(dataSet{1}, dataSet{2}, 5);
+[data, label, numOfBatch] = generateBatch(dataSet{1}, dataSet{2}, 1);
 
-net = model({LinearLayer(25, 50), Sigmoid(50), ...
-             LinearLayer(50, 5), SoftMaxLayer(5)});
+net = model({LinearLayer(25, 80), ReLU(80), ...
+             LinearLayer(80, 5), SoftMaxLayer(5)});
          
-epoch = 100;
+epoch = 10000;
 printableLoss = [];
 
 for i = 1 : epoch
     for j = 1 : numOfBatch
         out = net.forward(data{j});
         [loss, gradient] = Loss.CrossEntropy(label{j}, out);
-        net.backward(gradient, 0.1, 0.9, 0.00);
+        net.backward(gradient, 0.001, 0.0, 0.00);
     end
     printableLoss = [printableLoss mean(mean(loss))];
 end
-% result = net.forward(dataSet{1})
-result = net.forward(test)
+result = net.forward(dataSet{1})
+% result = net.forward(test)
 plot(1 : epoch, printableLoss, 'r-');
