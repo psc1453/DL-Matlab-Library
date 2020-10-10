@@ -71,7 +71,7 @@ label = eye(5);
 dataSet = {data, label};
 [data, label, numOfBatch] = generateBatch(dataSet{1}, dataSet{2}, 1);
 
-net = model({LinearLayer(25, 80), ReLU(80), ...
+net = model({LinearLayer(25, 80), DropOut(80), ReLU(80), ...
              LinearLayer(80, 5), SoftMaxLayer(5)});
          
 epoch = 10000;
