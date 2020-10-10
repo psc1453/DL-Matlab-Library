@@ -26,25 +26,65 @@
 clear
 clc
 
-dataSet = {[0 0 1 1;
-            0 1 0 1;
-            1 1 1 1], [0 1 1 0;
-                       1 0 0 1]};
-[data, label, numOfBatch] = generateBatch(dataSet{1}, dataSet{2}, 2);
+% dataSet = {[0 0 1 1;
+%             0 1 0 1;
+%             1 1 1 1], [0 1 1 0;
+%                        1 0 0 1]};
 
-net = model({LinearLayer(3, 5), Sigmoid(18), ...
-             LinearLayer(5, 2), Sigmoid(2)});
+data = [];
+data(:, 1) = reshape([0 1 1 0 0;
+                      0 0 1 0 0;
+                      0 0 1 0 0;
+                      0 0 1 0 0;
+                      0 1 1 1 0], 25, 1);
+                  
+data(:, 2) = reshape([1 1 1 1 0;
+                      0 0 0 0 1;
+                      0 1 1 1 0;
+                      1 0 0 0 0;
+                      1 1 1 1 1], 25, 1);
+                  
+data(:, 3) = reshape([1 1 1 1 0;
+                      0 0 0 0 1;
+                      0 1 1 1 0;
+                      0 0 0 0 1;
+                      1 1 1 1 0], 25, 1);
+                  
+data(:, 4) = reshape([0 0 0 1 0;
+                      0 0 1 1 0;
+                      0 1 0 1 0;
+                      1 1 1 1 1;
+                      0 0 0 1 0], 25, 1);
+                  
+data(:, 5) = reshape([1 1 1 1 1;
+                      1 0 0 0 0;
+                      1 1 1 1 0;
+                      0 0 0 0 1;
+                      1 1 1 1 0], 25, 1);
+                  
+test = reshape([0 1 1 1 1;
+                0 1 0 0 0;
+                0 1 1 1 0;
+                0 0 0 1 0;
+                1 1 1 1 0], 25, 1);
+label = eye(5);
+dataSet = {data, label};
+[data, label, numOfBatch] = generateBatch(dataSet{1}, dataSet{2}, 5);
+
+net = model({LinearLayer(25, 50), Sigmoid(50), ...
+             LinearLayer(50, 5), SoftMaxLayer(5)});
          
-epoch = 1000;
+epoch = 100;
 printableLoss = [];
 
 for i = 1 : epoch
     for j = 1 : numOfBatch
         out = net.forward(data{j});
         [loss, gradient] = Loss.CrossEntropy(label{j}, out);
-        net.backward(gradient, 0.1, 0.9);
+        net.backward(gradient, 0.1, 0.9, 0.00);
     end
     printableLoss = [printableLoss mean(mean(loss))];
 end
-result = net.forward(dataSet{1})
+% result = net.forward(dataSet{1})
+result = net.forward(test)
 plot(1 : epoch, printableLoss, 'r-');

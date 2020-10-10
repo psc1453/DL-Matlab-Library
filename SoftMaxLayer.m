@@ -19,7 +19,7 @@ classdef SoftMaxLayer < handle
             obj.outputCache = output;
         end
         
-        function passBack = backward(obj, takeIn, momentum) % passBack: in * batch, takeIn: out * batch
+        function passBack = backward(obj, takeIn, momentum, l2) % passBack: in * batch, takeIn: out * batch
 %             outVal = obj.outputCache;
 %             ai = repmat(outVal', obj.numOfInOut, 1);
 %             aj = repmat(1-outVal, 1, obj.numOfInOut);

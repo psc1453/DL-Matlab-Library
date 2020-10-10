@@ -26,12 +26,12 @@
             obj.outputCache = output;
         end
         
-        function passBack = backward(obj, takeIn, momentum) % passBack: in * batch, takeIn: out * batch
+        function passBack = backward(obj, takeIn, momentum, l2) % passBack: in * batch, takeIn: out * batch
             delta = takeIn;
             passBack = obj.W' * delta;
             obj.gW = (obj.inputCache * delta')' / size(obj.inputCache, 2) + momentum * obj.gW;
             obj.gB = mean(takeIn, 2) + momentum * obj.gB;
-            obj.W = obj.W - obj.gW;
+            obj.W = (1 - l2) * obj.W - obj.gW;
             obj.B = obj.B - obj.gB;
         end
     end
