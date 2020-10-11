@@ -15,9 +15,9 @@
             obj.numOfInput = numOfInput;
             obj.numOfOutput = numOfOutput;  
             obj.gW = zeros(numOfOutput, numOfInput);
-            obj.gB = zeros(numOfOutput, 1);
+%             obj.gB = zeros(numOfOutput, 1);
             obj.W = 2 * rand(numOfOutput, numOfInput) - 1;
-            obj.B = zeros(numOfOutput, 1);
+%             obj.B = zeros(numOfOutput, 1);
         end
         
         function output = forward(obj, input)
@@ -30,9 +30,9 @@
             delta = takeIn;
             passBack = obj.W' * delta;
             obj.gW = (obj.inputCache * delta')' / size(obj.inputCache, 2) + momentum * obj.gW;
-            obj.gB = mean(takeIn, 2) + momentum * obj.gB;
+%             obj.gB = mean(takeIn, 2) + momentum * obj.gB;
             obj.W = (1 - l2) * obj.W - obj.gW;
-            obj.B = obj.B - obj.gB;
+%             obj.B = obj.B - obj.gB;
         end
     end
 end
