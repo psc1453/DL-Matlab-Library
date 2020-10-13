@@ -74,18 +74,17 @@ dataSet = {data, label};
 net = model({LinearLayer(25, 80), DropOut(80), ReLU(80), ...
              LinearLayer(80, 5), SoftMaxLayer(5)});
          
-epoch = 1000;
+epoch = 10000;
 printableLoss = [];
 
 for i = 1 : epoch
     for j = 1 : numOfBatch
         out = net.forward(data{j});
         [loss, gradient] = Loss.CrossEntropy(label{j}, out);
-        net.backward(gradient, 0.001, 0.8, 0.00);
+        net.backward(gradient, 0.001, 0.05, 0.00);
     end
     printableLoss = [printableLoss mean(mean(loss))];
 end
-net2=net;
-result = net2.forward(dataSet{1})
+result = net.forward(dataSet{1})
 % result = net.forward(test)
 plot(1 : epoch, printableLoss, 'r-');
