@@ -1,4 +1,4 @@
- classdef LinearLayer < handle
+ classdef LinearLayer < Layer
     properties
         numOfInput
         numOfOutput

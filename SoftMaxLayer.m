@@ -1,4 +1,4 @@
-classdef SoftMaxLayer < handle
+classdef SoftMaxLayer < Layer
     properties
         inputCache % in * batch
         outputCache % out * batch

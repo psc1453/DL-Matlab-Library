@@ -1,4 +1,4 @@
-classdef DropOut < handle
+classdef DropOut < Layer
     properties
         inputCache % in * batch
         outputCache % out * batch

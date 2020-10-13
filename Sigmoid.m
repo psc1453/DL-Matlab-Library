@@ -1,4 +1,4 @@
-classdef Sigmoid < handle
+classdef Sigmoid < Layer
     properties
         inputCache % in * batch
         outputCache % out * batch

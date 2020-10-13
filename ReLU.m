@@ -1,4 +1,4 @@
-classdef ReLU < handle
+classdef ReLU < Layer
     properties
         inputCache % in * batch
         outputCache % out * batch
