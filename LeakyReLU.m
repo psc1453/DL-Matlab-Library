@@ -1,29 +1,28 @@
-classdef DropOut < Layer
+classdef LeakyReLU < Layer
     properties
         inputCache % in * batch
         outputCache % out * batch
         numOfInOut
-        ratio
-        drop
     end
     
     methods
-        function obj = DropOut(numOfInOut)
+        function obj = LeakyReLU(numOfInOut)
             obj.numOfInOut = numOfInOut;
-            obj.ratio = 0.5;
         end
         
         function output = forward(obj,input)
             obj.inputCache = input;
-%             obj.drop = randsrc(obj.numOfInOut, 1, [1 0; 0.5 0.5]);
-            obj.drop = (randi(1000, obj.numOfInOut, 1) > (1000 * obj.ratio));
-            output = input .* obj.drop / (1 - obj.ratio);
+            g0 = (input >= 0) * 1;
+            l0 = (input < 0) * 0.1;
+            output = input .* (g0 + l0);
             obj.outputCache = output;
         end
         
         function passBack = backward(obj, takeIn, momentum, l2) % passBack: in * batch, takeIn: out * batch
-            passBack = takeIn .* obj.drop / (1 - obj.ratio);
+            g0 = obj.outputCache >= 0;
+            l0 = obj.outputCache < 0;
+            g = g0 * 1 + l0 * 0.1;
+            passBack = takeIn .* g;
         end
     end
 end
-

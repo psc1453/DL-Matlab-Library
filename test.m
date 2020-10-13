@@ -1,7 +1,22 @@
-model = ReLU(5)
-in=[1;2;0;-1;-2];
-model.forward(in)
-model.backward([1;3;0;-1;-2])
+a=[1 2 3;
+   -1 -2 -3;]
+l0=(a<0)*0.1
+g0=(a>0)*1
+b=a.*l0+a.*g0
+
+
+
+
+
+
+
+
+
+
+% model = ReLU(5)
+% in=[1;2;0;-1;-2];
+% model.forward(in)
+% model.backward([1;3;0;-1;-2])
 
 
 
