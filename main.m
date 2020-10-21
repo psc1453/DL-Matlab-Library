@@ -71,17 +71,17 @@ label = eye(5);
 dataSet = {data, label};
 [data, label, numOfBatch] = generateBatch(dataSet{1}, dataSet{2}, 2);
 
-net = model({LinearLayer(25, 80), DropOut(80), LeakyReLU(80), ...
-             LinearLayer(80, 5), SoftMaxLayer(5)});
+net = model({LinearLayer(25, 80), DropOut(80), LeakyReLU(), ...
+             LinearLayer(80, 5), SoftMaxLayer()});
          
-epoch = 1000;
+epoch = 10000;
 printableLoss = [];
 
 for i = 1 : epoch
     for j = 1 : numOfBatch
         out = net.forward(data{j});
         [loss, gradient] = Loss.CrossEntropy(label{j}, out);
-        net.backward(gradient, 0.001, 0.05, 0.00);
+        net.backward(gradient, 0.001, 0.05, 0.000);
     end
     printableLoss = [printableLoss mean(mean(loss))];
 end

@@ -2,13 +2,11 @@ classdef SoftMaxLayer < Layer
     properties
         inputCache % in * batch
         outputCache % out * batch
-        numOfInOut
         g
     end
     
     methods
-        function obj = SoftMaxLayer(numOfInOut)
-            obj.numOfInOut = numOfInOut;
+        function obj = SoftMaxLayer()
         end
         
         function output = forward(obj,input)

@@ -2,12 +2,10 @@ classdef ReLU < Layer
     properties
         inputCache % in * batch
         outputCache % out * batch
-        numOfInOut
     end
     
     methods
-        function obj = ReLU(numOfInOut)
-            obj.numOfInOut = numOfInOut;
+        function obj = ReLU()
         end
         
         function output = forward(obj,input)

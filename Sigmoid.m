@@ -2,12 +2,10 @@ classdef Sigmoid < Layer
     properties
         inputCache % in * batch
         outputCache % out * batch
-        numOfInOut
     end
     
     methods
-        function obj = Sigmoid(numOfInOut)
-            obj.numOfInOut = numOfInOut;
+        function obj = Sigmoid()
         end
         
         function output = forward(obj,input)

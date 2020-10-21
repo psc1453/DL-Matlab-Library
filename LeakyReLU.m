@@ -2,12 +2,10 @@ classdef LeakyReLU < Layer
     properties
         inputCache % in * batch
         outputCache % out * batch
-        numOfInOut
     end
     
     methods
-        function obj = LeakyReLU(numOfInOut)
-            obj.numOfInOut = numOfInOut;
+        function obj = LeakyReLU()
         end
         
         function output = forward(obj,input)
