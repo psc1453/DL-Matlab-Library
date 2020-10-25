@@ -5,9 +5,9 @@
         inputCache % in * batch
         outputCache % out * batch
         gW % out * in
-        gB % out * 1
+%         gB % out * 1
         W % out * in
-        B % out * 1
+%         B % out * 1
     end
     
     methods

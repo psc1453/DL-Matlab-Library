@@ -1,8 +1,100 @@
-a=[1 2 3;
-   -1 -2 -3;]
-l0=(a<0)*0.1
-g0=(a>0)*1
-b=a.*l0+a.*g0
+clear
+clc
+
+img = randn(5, 5, 2, 2);
+layer = ConvLayer(2, 2, 4);
+originKer=layer.kernels
+for i = 1:1
+    layer.forward(img);
+    layer.backward(randn(2,2,4,2),0,0);
+    ker=layer.kernels
+    gker=layer.gKernels
+end
+
+
+
+
+
+
+
+
+
+
+
+% img1_ch1 = reshape(1:9, 3, 3)';
+% img1_ch2 = reshape(10:18, 3, 3)';
+% img1(:,:,1) = img1_ch1;
+% img1(:,:,2) = img1_ch2;
+% 
+% img2_ch1 = reshape(19:27, 3, 3)';
+% img2_ch2 = reshape(28:36, 3, 3)';
+% img2(:,:,1) = img2_ch1;
+% img2(:,:,2) = img2_ch2;
+% 
+% img(:,:,:,1) = img1;
+% img(:,:,:,2) = img2;
+% 
+% kernel = randn(2,2,2);
+% kernel = rot90(kernel, 2)
+% b(:,:,1,:) = kernel
+% 
+% 
+% img1_conv = convn(img1, kernel, 'valid');
+% img_conv = convn(img, kernel, 'valid')
+% img_conv = convn(img, b, 'valid')
+% a=squeeze(img_conv);
+
+
+
+
+
+
+
+
+
+% a=reshape(1:9, 3, 3)'
+% a1(:,:,1)=a
+% a1(:,:,2)=a
+% b=reshape(1:4,2, 2)'
+% b1(:,:,1)=b
+% b1(:,:,2)=b
+% c=convn(a,b, 'valid')
+% c1=convn(a1,b1, 'valid')
+
+
+
+
+
+
+
+
+
+
+
+
+% img1_ch1=[1 2;3 4]
+% img1_ch2=[5 6;7 8]
+% img2_ch1=[9 10;11 12]
+% img2_ch2=[13 14;15 16]
+% img=[img1_ch1 img1_ch2 img2_ch1 img2_ch2]
+% imgg=reshape(img, 2,2,2,2)
+% f=[1 1 1 1 1;
+%                       1 0 0 0 0;
+%                       1 1 1 1 0;
+%                       0 0 0 0 1;
+%                       1 1 1 1 0]
+
+
+
+
+
+
+
+% a=[1 2 3;
+%    -1 -2 -3;]
+% l0=(a<0)*0.1
+% g0=(a>0)*1
+% b=a.*l0+a.*g0
 
 
 
