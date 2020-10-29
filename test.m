@@ -1,6 +1,10 @@
 clear
 clc
 
+% a = reshape(1:16,4,4)'
+% layer = AveragePoolLayer(1,2);
+% out=layer.forward(a)
+% back=layer.backward([1 3;5 7],0,0)
 
 
 
@@ -10,30 +14,156 @@ clc
 
 
 
-img1_ch1 = reshape(1 : 9, 3, 3);
-img1_ch2 = reshape(10 : 18, 3, 3);
-img2_ch1 = reshape(19 : 27, 3, 3);
-img2_ch2 = reshape(28 : 36, 3, 3);
 
-img = [img1_ch1 img1_ch2 img2_ch1 img2_ch2];
-img = reshape(img, 3, 3, 2, 1, 2);
 
-ker1_ch1 = reshape(1 : 4, 2, 2);
-ker1_ch2 = reshape(5 : 8, 2, 2);
-ker2_ch1 = reshape(9 : 12, 2, 2);
-ker2_ch2 = reshape(13 : 16, 2, 2);
 
-ker = [ker1_ch1 ker1_ch2 ker2_ch1 ker2_ch2];
-ker = reshape(ker, 2, 2, 2, 2, 1);
 
-for i = 1 : 2
-    outputCache(:, :, 1, i, :)=filtern(img(:,:,:,1,:),ker(:,:,:,i,1),'valid');
-end
-out = outputCache;
 
-layer = ConvLayer(2, 2, 2);
-layer_out = layer.forward(img);
-layer.backward(randn(2,2,2,2),0,0);
+% ker = repmat(ones(2,2)/2^2, 1,1,1)
+% img = [2,3;4,5];
+% img = repmat(img, 1, 1, 2)
+% out = kron(img,ker)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% layer = ConvLayer(1, 1, 2);
+% data = [1 2 3;
+%         4 5 6;
+%         7 8 9];
+% out = layer.forward(data);
+% aim = filtern(data, [4 3;
+%                      2 1], 'valid')
+% for i = 1:1000
+%     out = layer.forward(data)
+%     delta = -(aim - out)
+%     back = layer.backward(delta*0.0001, 0, 0)
+% end
+% out = layer.forward(data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% data=imread('jzx.png');
+% data=mean(data, 3);
+% data=(data(1:2:499,:)+data(2:2:500,:))/2;
+% data=(data(:,1:2:499)+data(:,2:2:500))/2;
+% data=(data(1:2:249,:)+data(2:2:250,:))/2;
+% data=(data(:,1:2:249)+data(:,2:2:250))/2;
+% data=data/255;
+% in=rand(125,125);
+% aim=filtern(data, [0.0 0.2 0.0;
+%                    0.0 0.2 0.0;
+%                    0.0 0.2 0.0],'valid');
+% aim=aim>0.5;
+% aim=aim+0;
+% % image(aim*255)
+% net=model({ConvLayer(1,1,3),Sigmoid()});
+% % out=net.forward(data);
+% % image(out*256)
+% for i=1:1000
+%     out = net.forward(data);
+% %     image(out*255)
+% %     image(aim)
+%     if (i==1)
+% %         image(out*255);
+%     end
+%     [loss, gradient] = Loss.CrossEntropy(aim, out);
+%     net.backward(gradient, 0.0001, 0.8, 0.001);
+% end
+% out=net.forward(data);
+% image(out*255)
+
+
+
+
+
+
+
+
+
+
+
+
+
+% img = reshape(1:9, 3, 3)';
+% img = reshape(img, 3,3,1,1,1);
+% ker = [1 2;3 4];
+% 
+% out = filtern(img,ker,'valid')
+% 
+% takeIn = [7 6;5 4];
+% 
+% g = filtern(img, takeIn, 'valid')
+% 
+% passback = convn(takeIn, ker, 'full')
+% 
+% layer = ConvLayer(1,1,2);
+% layer_out = layer.forward(img)
+% layer_back = layer.backward(takeIn, 0, 0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% img1_ch1 = reshape(1 : 9, 3, 3);
+% img1_ch2 = reshape(10 : 18, 3, 3);
+% img2_ch1 = reshape(19 : 27, 3, 3);
+% img2_ch2 = reshape(28 : 36, 3, 3);
+% 
+% img = [img1_ch1 img1_ch2 img2_ch1 img2_ch2];
+% img = reshape(img, 3, 3, 2, 1, 2);
+% 
+% ker1_ch1 = reshape(1 : 4, 2, 2);
+% ker1_ch2 = reshape(5 : 8, 2, 2);
+% ker2_ch1 = reshape(9 : 12, 2, 2);
+% ker2_ch2 = reshape(13 : 16, 2, 2);
+% 
+% ker = [ker1_ch1 ker1_ch2 ker2_ch1 ker2_ch2];
+% ker = reshape(ker, 2, 2, 2, 2, 1);
+% 
+% for i = 1 : 2
+%     outputCache(:, :, 1, i, :)=filtern(img(:,:,:,1,:),ker(:,:,:,i,1),'valid');
+% end
+% out = outputCache;
+% 
+% layer = ConvLayer(2, 2, 2);
+% layer_out = layer.forward(img);
+% layer.backward(randn(2,2,2,2),0,0);
 
 
 

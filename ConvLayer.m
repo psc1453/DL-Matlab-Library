@@ -15,6 +15,8 @@
             obj.outputChannel = outputChannel;
             obj.kernelSize = kernelSize;
             obj.kernels(:, :, :, :, 1) = randn(kernelSize, kernelSize, inputChannel, outputChannel);
+%             obj.kernels = [1 2; 3 4];
+%             obj.kernels = reshape(obj.kernels, kernelSize, kernelSize, inputChannel, outputChannel, 1);
             obj.gKernels(:, :, :, :, 1) = zeros(kernelSize, kernelSize, inputChannel, outputChannel);
         end
         
@@ -24,21 +26,25 @@
                 obj.outputCache(:, :, 1, i, :) = filtern(obj.inputCache(:, :, :, 1, :), obj.kernels(:, :, :, i, 1), 'valid');
             end
             outputSize = size(obj.outputCache);
-            outputSize(3) = [];
+            if (length(outputSize) > 2)
+                outputSize(3) = [];
+            end
             output = reshape(obj.outputCache, outputSize);
         end
         
         function passBack = backward(obj, takeIn, momentum, l2)
             delta(:, :, 1, :, :) = takeIn;
-            passBackCacheSize = size(obj.inputCache);
-            passBackCacheSize(4) = obj.outputChannel;
-            passBackCache = zeros(passBackCacheSize);
+%             passBackCacheSize = size(obj.inputCache);
+%             passBackCacheSize(4) = obj.outputChannel;
+%             passBackCache = zeros(passBackCacheSize);
             for i = 1 : obj.outputChannel
                 passBackCache(:, :, :, i, :) = convn(delta(:, :, 1, i, :), obj.kernels(:, :, :, i, 1), 'full');
             end
             passBack = sum(passBackCache, 4);
             passBackSize = size(passBack);
-            passBackSize(4) = [];
+            if (length(passBackSize) > 2)
+                passBackSize(4) = [];
+            end
             passBack = reshape(passBack, passBackSize);
             gForEveryOutChannel = [];
             for i = 1 : obj.outputChannel
