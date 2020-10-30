@@ -43,7 +43,7 @@
             iter = iter(3 : 4);
             for i = 1 : iter(1)
                 for j = 1 : iter(2)
-                    passBack(:, :, i, j) = kron(takeIn, obj.kernels);
+                    passBack(:, :, i, j) = kron(takeIn(:, :, i, j), obj.kernels);
                 end
             end
         end

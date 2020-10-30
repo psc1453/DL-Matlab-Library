@@ -1,4 +1,4 @@
-% clear
+a% clear
 % clc
 % 
 % dataSet = {[0 0 1 1;
