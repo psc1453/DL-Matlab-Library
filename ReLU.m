@@ -10,7 +10,7 @@ classdef ReLU < Layer
         
         function output = forward(obj,input)
             obj.inputCache = input;
-            output = max(0, input);
+            output = max(0, input/10);
             obj.outputCache = output;
         end
         
