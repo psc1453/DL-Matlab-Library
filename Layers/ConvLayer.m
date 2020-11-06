@@ -1,4 +1,6 @@
- classdef ConvLayer < Layer
+% Layer for extract feature
+% Support batch
+classdef ConvLayer < Layer
     properties
         inputChannel
         outputChannel
@@ -10,16 +12,16 @@
     end
     
     methods
+        % Example: For 3 input channel, 10 output channel, 5x5 kernel size, using ConvLayer(3, 10, 5)
         function obj = ConvLayer(inputChannel, outputChannel, kernelSize)
             obj.inputChannel = inputChannel;
             obj.outputChannel = outputChannel;
             obj.kernelSize = kernelSize;
             obj.kernels(:, :, :, :, 1) = (randn(kernelSize, kernelSize, inputChannel, outputChannel)) / (inputChannel * kernelSize ^ 2);
-%             obj.kernels = [1 2; 3 4];
-%             obj.kernels = reshape(obj.kernels, kernelSize, kernelSize, inputChannel, outputChannel, 1);
             obj.gKernels(:, :, :, :, 1) = zeros(kernelSize, kernelSize, inputChannel, outputChannel);
         end
         
+        % Forward propagation
         function output = forward(obj, input)
             obj.inputCache = [];
             obj.outputCache = [];
@@ -28,12 +30,14 @@
                 obj.outputCache(:, :, 1, i, :) = filtern(obj.inputCache(:, :, :, 1, :), obj.kernels(:, :, :, i, 1), 'valid');
             end
             outputSize = size(obj.outputCache);
+            % Delete the 3rd dimension which is used for allignment
             if (length(outputSize) > 2)
                 outputSize(3) = [];
             end
             output = reshape(obj.outputCache, outputSize);
         end
         
+        % Backward propagation
         function passBack = backward(obj, takeIn, momentum, l2)
             delta(:, :, 1, :, :) = takeIn;
 %             passBackCacheSize = size(obj.inputCache);

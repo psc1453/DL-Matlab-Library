@@ -1,4 +1,5 @@
- classdef LinearLayer < Layer
+% Support batch
+classdef FullConnectLayer < Layer
     properties
         numOfInput
         numOfOutput
@@ -10,8 +11,10 @@
 %         B % out * 1
     end
     
+    
     methods
-        function obj = LinearLayer(numOfInput, numOfOutput)
+        % Example: For 3 input, 10 output, using FullConnectLayer(3, 10)
+        function obj = FullConnectLayer(numOfInput, numOfOutput)
             obj.numOfInput = numOfInput;
             obj.numOfOutput = numOfOutput;  
             obj.gW = zeros(numOfOutput, numOfInput);
@@ -20,12 +23,14 @@
 %             obj.B = zeros(numOfOutput, 1);
         end
         
+        % Forward Propagation
         function output = forward(obj, input)
             obj.inputCache = input;
             output = obj.W * input;
             obj.outputCache = output;
         end
         
+        % Backward propagation
         function passBack = backward(obj, takeIn, momentum, l2) % passBack: in * batch, takeIn: out * batch
             delta = takeIn;
             passBack = obj.W' * delta;

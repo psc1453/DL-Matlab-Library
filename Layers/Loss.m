@@ -1,5 +1,6 @@
+% Loss functions
+% Can be used to compute loss and sendback gradient
 classdef Loss
-    
     methods (Static)
         function [loss, gradient] = SquareError(label, out)
             loss = (label - out) .^ 2;

@@ -1,3 +1,4 @@
+% Softmax layer that conform to Layer protocol
 classdef SoftMaxLayer < Layer
     properties
         inputCache % in * batch
@@ -9,6 +10,7 @@ classdef SoftMaxLayer < Layer
         function obj = SoftMaxLayer()
         end
         
+        % Forward propagation
         function output = forward(obj,input)
             obj.inputCache = input;
             expInput = exp(input);
@@ -17,6 +19,7 @@ classdef SoftMaxLayer < Layer
             obj.outputCache = output;
         end
         
+        % Backward propagation
         function passBack = backward(obj, takeIn, momentum, l2) % passBack: in * batch, takeIn: out * batch
 %             outVal = obj.outputCache;
 %             ai = repmat(outVal', obj.numOfInOut, 1);
