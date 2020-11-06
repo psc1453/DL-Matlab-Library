@@ -16,7 +16,7 @@
             obj.numOfOutput = numOfOutput;  
             obj.gW = zeros(numOfOutput, numOfInput);
 %             obj.gB = zeros(numOfOutput, 1);
-            obj.W = 2 * rand(numOfOutput, numOfInput) - 1;
+            obj.W = (2 * rand(numOfOutput, numOfInput) - 1) / numOfInput;
 %             obj.B = zeros(numOfOutput, 1);
         end
         

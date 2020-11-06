@@ -1,5 +1,21 @@
 clear
 clc
+a=3
+for i = 1:a
+    a=a+1
+end
+
+
+
+
+
+
+
+
+
+
+
+
 
 % a = reshape(1:16,4,4)'
 % layer = AveragePoolLayer(1,2);

@@ -24,6 +24,22 @@ classdef model < handle
                 passBack = obj.layers{obj.numOfLayers - i + 1}.backward(passBack, momentum, l2);
             end
         end
+        
+        function trainMode(obj)
+            for i = 1 : length(obj.layers)
+                if (isa(obj.layers{i}, 'DropOut'))
+                    obj.layers{i}.isTrain = 1;
+                end
+            end
+        end
+        
+        function TestMode(obj)
+            for i = 1 : length(obj.layers)
+                if (isa(obj.layers{i}, 'DropOut'))
+                    obj.layers{i}.isTrain = 0;
+                end
+            end
+        end
     end
 end
 

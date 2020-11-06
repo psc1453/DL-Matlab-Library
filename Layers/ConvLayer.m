@@ -14,7 +14,7 @@
             obj.inputChannel = inputChannel;
             obj.outputChannel = outputChannel;
             obj.kernelSize = kernelSize;
-            obj.kernels(:, :, :, :, 1) = randn(kernelSize, kernelSize, inputChannel, outputChannel);
+            obj.kernels(:, :, :, :, 1) = (randn(kernelSize, kernelSize, inputChannel, outputChannel)) / (inputChannel * kernelSize ^ 2);
 %             obj.kernels = [1 2; 3 4];
 %             obj.kernels = reshape(obj.kernels, kernelSize, kernelSize, inputChannel, outputChannel, 1);
             obj.gKernels(:, :, :, :, 1) = zeros(kernelSize, kernelSize, inputChannel, outputChannel);
