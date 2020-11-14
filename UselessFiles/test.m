@@ -1,9 +1,24 @@
-clear
-clc
-a=3
-for i = 1:a
-    a=a+1
-end
+reshape(randperm(100), 10,10)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% clear
+% clc
+% a=3
+% for i = 1:a
+%     a=a+1
+% end
 
 
 

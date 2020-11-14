@@ -4,20 +4,22 @@ clc
 % Add necessarry directories to path
 addpath('Tools', 'Framework', 'Layers');
 
+% Training parameters
+usingSamples = 60000;
+batchSize = 5;
+learningRate = 0.005;
+momentum = 0.0;
+l2 = 0;
+epoch = 5;
+
 % Load dataset
 mnist = load('MNISTData.mat');
-train_label = mnist.D_Train;
-train_data(:, :, 1, :) = mnist.X_Train;
+train_label = mnist.D_Train(:, 1:usingSamples);
+train_data(:, :, 1, :) = mnist.X_Train(:, :, 1:usingSamples);
 test_label = mnist.D_Test(:, 1:100);
 test_data(:, :, 1, :) = mnist.X_Test(:, :, 1:100);
 % Count sample number
 samples=size(train_data, 4);
-
-% Training parameters
-batchSize = 1;
-learningRate = 0.005;
-momentum = 0;
-l2 = 0;
 
 % Model definition
 net = model({ConvLayer(1, 10, 9), ReLU(1), AveragePoolLayer(10, 2), ...
@@ -31,10 +33,11 @@ accuracy=[];
 % Train
 iters=samples/batchSize;
 net.trainMode();
-for j=1:2
+for j=1:epoch*batchSize
+    batchMatrix = reshape(randperm(usingSamples), usingSamples / batchSize, batchSize);
     for i = 1:iters
-        out = net.forward(train_data(:,:,:,i:iters:end-iters+i));
-        [currentLoss, gradient] = Loss.CrossEntropy(train_label(:,i:iters:end-iters+i), out);
+        out = net.forward(train_data(:,:,:,batchMatrix(i, :)));
+        [currentLoss, gradient] = Loss.CrossEntropy(train_label(:,batchMatrix(i, :)), out);
         net.backward(gradient, learningRate, momentum, l2);
         loss=[loss mean(mean(currentLoss))];
         
@@ -44,6 +47,7 @@ for j=1:2
 %         error=sum(aim_idx==out_idx);
 %         acc = [acc error/length(out_idx)];
     end
+    j
 end
 
 % Test
